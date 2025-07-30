@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 # Movement and Camera Settings
 @export var speed = 400
-@export var camera_look_ahead_distance = 200  
-@export var camera_follow_speed = 5.0 
+@export var camera_look_ahead_distance = 100  
+@export var camera_follow_speed = 10.0 
 
 # Combat Settings
 @export var max_health := 100
@@ -71,7 +71,7 @@ func update_camera_position(delta):
 	
 	# Calculate target camera offset
 	var target_offset = mouse_direction * min(
-		global_position.distance_to(mouse_pos) / 2,
+		global_position.distance_to(mouse_pos) / 5,
 		camera_look_ahead_distance
 	)
 	

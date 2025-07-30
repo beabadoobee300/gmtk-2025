@@ -2,7 +2,7 @@ extends Node2D
 
 
 #gun stuff
-@export var damage := 30
+@export var damage := 15
 @export var max_distance := 1000
 @export var fire_rate := 0.2
 @export var automatic := false
@@ -10,6 +10,7 @@ extends Node2D
 @export var max_ammo := 90
 @export var reload_time := 1.5
 
+@export var enemy: PackedScene
 # effects
 
 # state
@@ -47,15 +48,22 @@ func shoot():
 	cooldown_timer = fire_rate
 	
 	#raycasting
+	# In your gun/shooting script
 	var space_state = get_world_2d().direct_space_state
 	var end_point = global_position + Vector2.RIGHT.rotated(global_rotation) * max_distance
 	var query = PhysicsRayQueryParameters2D.create(global_position, end_point)
-	
+
+	# Add collision exceptions if needed (e.g., to ignore player)
+	# query.exclude = [player_body_rid] 
+
 	var result = space_state.intersect_ray(query)
-	
 	if result:
-		print("hit")
-	
+		var collider = result.collider
+		if collider.is_in_group("enemies"):
+			# Enemy-specific handling
+			var enemy = collider
+			enemy.take_damage(damage)
+			
 	
 func reload():
 	print("reload")

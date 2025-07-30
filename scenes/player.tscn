@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dnjqxwrkqym37"]
+[gd_scene load_steps=7 format=3 uid="uid://dnjqxwrkqym37"]
 
 [ext_resource type="Texture2D" uid="uid://b7jpg6lh65cui" path="res://icon.svg" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://bmmpn7y8eda0b" path="res://scripts/player.gd" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://c8i21ap2ydtfn" path="res://scripts/gun.gd" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://dflojfero2vs0" path="res://scenes/enemy.tscn" id="4_dqkch"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
 size = Vector2(63, 63)
@@ -25,6 +26,7 @@ texture = ExtResource("2_qhqgy")
 
 [node name="gun" type="Node2D" parent="."]
 script = ExtResource("3_qhqgy")
+enemy = ExtResource("4_dqkch")
 
 [node name="gun" type="Sprite2D" parent="gun"]
 position = Vector2(46, 0)
