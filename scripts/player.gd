@@ -1,9 +1,6 @@
 extends CharacterBody2D
 
-# Movement and Camera Settings
-@export var speed = 400
-@export var camera_look_ahead_distance = 100  
-@export var camera_follow_speed = 10.0 
+
 
 # Combat Settings
 @export var max_health := 100
@@ -12,17 +9,21 @@ extends CharacterBody2D
 @export var invulnerability_duration := 2.0
 
 # Nodes
-@onready var camera: Camera2D = $Camera2D  
 @onready var gun: Node2D = $gun
-@onready var sprite: Sprite2D = $player  # Assuming you have a sprite
-@export var enemy_scene : PackedScene  # Drag enemy.tscn here in inspector
-@export var death_enemy_scale := 1.0  # Size multiplier for spawned enemy
+@onready var sprite: Sprite2D = $player
+@export var enemy_scene : PackedScene
+@export var death_enemy_scale := 1.0
+
 # State variables
 var current_health : int
 var is_dead := false
 var is_invulnerable := false
 var shooting = false
 var original_position : Vector2
+
+@export var normal_speed := 400
+@export var shooting_speed := 200  # Reduced speed when shooting
+var speed := normal_speed
 
 func _ready():
 	current_health = max_health
@@ -33,16 +34,20 @@ func _ready():
 func _physics_process(delta):
 	if !is_dead:
 		get_input(delta)
-		update_camera_position(delta)
 		move_and_slide()
 
 func _process(delta):
 	if shooting and !is_dead:
 		gun.shoot()
 
+func set_shooting_state(is_shooting: bool):
+	shooting = is_shooting
+	
 func get_input(delta):
 	# Handle continuous movement input
 	var input_direction = Input.get_vector("left", "right", "up", "down")
+	speed = shooting_speed if shooting else normal_speed
+	
 	velocity = input_direction * speed
 	
 	# Handle rotation toward mouse
@@ -64,22 +69,7 @@ func get_input(delta):
 		if Input.is_action_just_pressed("shoot"):
 			gun.shoot()
 
-func update_camera_position(delta):
-	# Get mouse position relative to player
-	var mouse_pos = get_global_mouse_position()
-	var mouse_direction = (mouse_pos - global_position).normalized()
-	
-	# Calculate target camera offset
-	var target_offset = mouse_direction * min(
-		global_position.distance_to(mouse_pos) / 5,
-		camera_look_ahead_distance
-	)
-	
-	# Smoothly move the camera offset
-	camera.offset = camera.offset.lerp(target_offset, camera_follow_speed * delta)
-
 func kill_player():
-	
 	if is_dead: 
 		return
 	spawn_zombie()
@@ -133,12 +123,12 @@ func spawn_zombie():
 	if !enemy_scene:
 		push_warning("No enemy scene assigned for death spawn")
 		return
+	
 	var new_enemy = enemy_scene.instantiate()
 	
 	# Configure enemy
 	new_enemy.global_position = global_position
 	new_enemy.scale = Vector2(death_enemy_scale, death_enemy_scale)
 	
-	# Add to scene tree (use owner for proper level cleanup)
+	# Add to scene tree
 	get_tree().current_scene.add_child(new_enemy)
-	

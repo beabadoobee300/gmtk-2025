@@ -9,7 +9,7 @@
 [node name="Game" type="Node2D"]
 script = ExtResource("1_uwrxv")
 
-[node name="Player" parent="." node_paths=PackedStringArray("respawn_points") instance=ExtResource("2_yqjtg")]
+[node name="Player" parent="." node_paths=PackedStringArray("respawn_points") groups=["player"] instance=ExtResource("2_yqjtg")]
 respawn_points = [NodePath("../Respawn")]
 enemy_scene = ExtResource("5_iywne")
 
