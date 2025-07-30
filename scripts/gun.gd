@@ -4,6 +4,7 @@ extends Node2D
 @export var damage := 15
 @export var max_distance := 700
 @export var fire_rate := 0.2
+@export var slow_duration := 0.3
 @export var automatic := false
 @export var ammo := 30
 @export var max_ammo := 90
@@ -21,7 +22,7 @@ extends Node2D
 @export var spread_decay_rate := 5.0
 @export var spread_increase_per_shot := 1.0
 
-var current_spread := 10.0
+var current_spread := 8.0
 var last_bullet_angle := 0.0
 var time_since_last_shot := 0.0
 
@@ -110,8 +111,7 @@ func shoot():
 	if result and result.collider.is_in_group("enemies"):
 		if result.collider.has_method("take_damage"):
 			result.collider.take_damage(damage)
-		if show_raycast:
-			draw_circle(to_local(result.position), 5, Color(1, 0, 0))
+		
 
 func reload():
 	if is_reloading or current_ammo == ammo:

@@ -38,19 +38,19 @@ func can_see_player():
 	
 	var direction_to_player = (player.global_position - global_position).normalized()
 	var distance_to_player = global_position.distance_to(player.global_position)
-	print("DEBUG: Distance to player: %.1f (max %.1f)" % [distance_to_player, view_distance])
+	#print("DEBUG: Distance to player: %.1f (max %.1f)" % [distance_to_player, view_distance])
 	
 	# Check if player is within view distance
 	if distance_to_player > view_distance:
-		print("DEBUG: Player too far away")
+		#print("DEBUG: Player too far away")
 		return false
 	
 	# Check angle (convert to degrees for easier understanding)
 	var angle_to_player = rad_to_deg(direction_to_player.angle() - rotation)
-	print("DEBUG: Angle to player: %.1f° (max %.1f°)" % [angle_to_player, view_angle])
+	#print("DEBUG: Angle to player: %.1f° (max %.1f°)" % [angle_to_player, view_angle])
 	
 	if abs(angle_to_player) > view_angle:
-		print("DEBUG: Player outside view cone")
+		#print("DEBUG: Player outside view cone")
 		return false
 	
 	# Raycast to check line of sight
