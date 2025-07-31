@@ -11,8 +11,7 @@ extends CharacterBody2D
 # Nodes
 @onready var gun: Node2D = $gun
 @onready var sprite: Sprite2D = $player
-@onready var health_label: Label = get_node("../CanvasLayer/VBoxContainer/health")
-@onready var ammo_label: Label = get_node("../CanvasLayer/VBoxContainer/ammo")
+
 
 @export var enemy_scene : PackedScene
 @export var death_enemy_scale := 1.0
@@ -21,15 +20,21 @@ extends CharacterBody2D
 signal health_updated(value)
 signal ammo_updated(value)
 # State variables
-var current_health : int
+var current_health := max_health
 var is_dead := false
 var is_invulnerable := false
 var shooting = false
 var original_position : Vector2
 
-@export var normal_speed := 400
-@export var shooting_speed := 200  # Reduced speed when shooting
+@export var normal_speed := 300
+@export var shooting_speed := 150  # Reduced speed when shooting
 var speed := normal_speed
+
+
+# damage
+var can_take_damage = true
+var damage_cooldown = 1.0  # 1 second cooldown
+var cooldown_timer = 0.0
 
 func _ready():
 	current_health = max_health
@@ -44,6 +49,7 @@ func _physics_process(delta):
 		get_input(delta)
 		move_and_slide()
 		update_labels()
+		
 	
 	
 func update_labels():
@@ -53,6 +59,10 @@ func update_labels():
 func _process(delta):
 	if shooting and !is_dead:
 		gun.shoot()
+	if !can_take_damage:
+		cooldown_timer -= delta
+		if cooldown_timer <= 0:
+			can_take_damage = true
 
 func set_shooting_state(is_shooting: bool):
 	shooting = is_shooting
@@ -62,7 +72,7 @@ func get_input(delta):
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 	speed = shooting_speed if shooting else normal_speed
 	
-	velocity = input_direction * speed
+	velocity = (input_direction * speed ) * (current_health + 100) / 200
 	
 	# Handle rotation toward mouse
 	var mouse_pos = get_global_mouse_position()
@@ -146,3 +156,18 @@ func spawn_zombie():
 	
 	# Add to scene tree
 	get_tree().current_scene.add_child(new_enemy)
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	var other_body = area.get_parent()
+	if other_body.is_in_group("enemies") and can_take_damage:
+		print("Touching:", other_body.name)
+		take_damage(20)
+		# Start cooldown
+		can_take_damage = false
+		cooldown_timer = damage_cooldown
+		# Optional: Visual feedback (flash effect)
+		modulate = Color.RED
+		await get_tree().create_timer(0.1).timeout
+		modulate = Color.WHITE
+	pass # Replace with function body.

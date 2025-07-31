@@ -28,7 +28,7 @@ texture = ExtResource("3_lbhrr")
 position = Vector2(253, 152)
 
 [node name="Environment" parent="." instance=ExtResource("6_p57ef")]
-position = Vector2(150, 80)
+position = Vector2(28, 13)
 
 [node name="Collectable" parent="." instance=ExtResource("7_u5sy4")]
 position = Vector2(-166, 200)
