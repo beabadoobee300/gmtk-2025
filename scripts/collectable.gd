@@ -7,8 +7,9 @@ extends Area2D
 @export var respawn_time := 0.0 # 0 means don't respawn
 
 # Custom signal for collection
-signal collected(item_name, item_value)
-@export var item_name := "Ammo"  # Text to display
+signal collected(item_name)
+
+@export var item_name := collectable_name  # Text to display
 @export var show_name := true    # Toggle visibility
 
 func _ready():
@@ -23,10 +24,11 @@ func _ready():
 
 func _on_body_entered(body):
 	if body.is_in_group("player"): # Or whatever your player group is
-		emit_signal("collected", collectable_name, value)
 		handle_collection()
+		
 
 func handle_collection():
+	emit_signal("collected", item_name)
 	if disappear_on_collect:
 		visible = false
 		$CollisionShape2D.set_deferred("disabled", true)

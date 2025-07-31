@@ -7,5 +7,7 @@ func _ready():
 func _on_health_updated(value):
 	$VBoxContainer/health.text = "Health: %d/100" % value
 
-func _on_ammo_updated(value):
-	$VBoxContainer/ammo.text = "Ammo: %d/15" % value
+func _on_ammo_updated(current_magazine : int, current_reserve : int):
+	$VBoxContainer/ammo.text = "Ammo: %d Reserve: %d" % [current_magazine, current_reserve]
+	
+	

@@ -54,7 +54,7 @@ func _physics_process(delta):
 	
 func update_labels():
 	emit_signal("health_updated", current_health)
-	emit_signal("ammo_updated", gun.current_ammo)
+	emit_signal("ammo_updated", gun.current_magazine, gun.current_reserve)
 	
 func _process(delta):
 	if shooting and !is_dead:

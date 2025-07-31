@@ -12,7 +12,7 @@
 [node name="Game" type="Node2D"]
 script = ExtResource("1_uwrxv")
 
-[node name="Player" parent="." node_paths=PackedStringArray("respawn_points") groups=["player"] instance=ExtResource("2_yqjtg")]
+[node name="Player" parent="." node_paths=PackedStringArray("respawn_points") instance=ExtResource("2_yqjtg")]
 respawn_points = [NodePath("../Respawn")]
 enemy_scene = ExtResource("5_iywne")
 
@@ -30,8 +30,13 @@ position = Vector2(253, 152)
 [node name="Environment" parent="." instance=ExtResource("6_p57ef")]
 position = Vector2(28, 13)
 
-[node name="Collectable" parent="." instance=ExtResource("7_u5sy4")]
+[node name="ammo" parent="." instance=ExtResource("7_u5sy4")]
 position = Vector2(-166, 200)
+item_name = "Ammo"
 
 [node name="hud" parent="." instance=ExtResource("8_gee14")]
 unique_name_in_owner = true
+
+[node name="key" parent="." instance=ExtResource("7_u5sy4")]
+position = Vector2(-14, 223)
+item_name = "Key"
