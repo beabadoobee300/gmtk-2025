@@ -11,9 +11,15 @@ extends CharacterBody2D
 # Nodes
 @onready var gun: Node2D = $gun
 @onready var sprite: Sprite2D = $player
+@onready var health_label: Label = get_node("../CanvasLayer/VBoxContainer/health")
+@onready var ammo_label: Label = get_node("../CanvasLayer/VBoxContainer/ammo")
+
 @export var enemy_scene : PackedScene
 @export var death_enemy_scale := 1.0
+# signals
 
+signal health_updated(value)
+signal ammo_updated(value)
 # State variables
 var current_health : int
 var is_dead := false
@@ -28,6 +34,8 @@ var speed := normal_speed
 func _ready():
 	current_health = max_health
 	original_position = global_position
+
+	update_labels()
 	if respawn_points.is_empty():
 		respawn_points.append(self) # Default to starting position
 
@@ -35,7 +43,13 @@ func _physics_process(delta):
 	if !is_dead:
 		get_input(delta)
 		move_and_slide()
-
+		update_labels()
+	
+	
+func update_labels():
+	emit_signal("health_updated", current_health)
+	emit_signal("ammo_updated", gun.current_ammo)
+	
 func _process(delta):
 	if shooting and !is_dead:
 		gun.shoot()

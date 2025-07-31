@@ -6,8 +6,8 @@ extends Node2D
 @export var fire_rate := 0.2
 @export var slow_duration := 0.3
 @export var automatic := false
-@export var ammo := 30
-@export var max_ammo := 90
+@export var ammo := 15
+@export var max_ammo := 15
 @export var reload_time := 1.5
 @export var enemy: PackedScene
 

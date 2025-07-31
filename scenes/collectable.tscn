@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds186todub6nv"]
+
+[ext_resource type="Script" uid="uid://bkymcghqjjmy4" path="res://scripts/collectable.gd" id="1_llfh3"]
+[ext_resource type="Texture2D" uid="uid://b7jpg6lh65cui" path="res://icon.svg" id="1_ti8a4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_llfh3"]
+radius = 2.375
+
+[node name="Collectable" type="Area2D"]
+script = ExtResource("1_llfh3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(8, 8)
+shape = SubResource("CircleShape2D_llfh3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_ti8a4")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = 20.0
+offset_right = 63.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.52, 0.52)
+text = "Collectable
+"
+horizontal_alignment = 1
