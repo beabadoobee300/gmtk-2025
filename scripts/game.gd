@@ -52,7 +52,8 @@ func collect_ammo(n):
 
 func _on_switch_activated(switch_name):
 	print("Switch activated: ", switch_name)
-	
+	if switch_name == "Generator":
+		active_generators += 1
 	# Handle whatever should happen when switch is activated
 	
 func _on_collected(collect):
@@ -66,6 +67,9 @@ func _on_collected(collect):
 			collect_ammo(5)
 
 func _on_exit_activated():
-	print("Exit activated! Level complete!")
+	if active_generators == 3:
+		print("Exit activated! Level complete!")
+		end_game()
+	print("generators not activated")
 	# Handle level completion here
-	end_game()
+	
