@@ -3,11 +3,11 @@ extends Node2D
 # Weapon Configuration
 @export var damage := 15
 @export var max_distance := 700
-@export var fire_rate := 0.2
-@export var slow_duration := 0.3
+@export var fire_rate := 0.5
+@export var slow_duration := 0.5
 @export var automatic := false
 @export var magazine_size := 5
-@export var reload_time := 1.5
+@export var reload_time := 2.0
 @export var enemy: PackedScene
 
 # Debug Visualization
@@ -18,7 +18,7 @@ extends Node2D
 # Spread Mechanics
 @export var base_spread_angle := 5.0
 @export var max_spread_angle := 10.0
-@export var spread_decay_rate := 5.0
+@export var spread_decay_rate := 5.0	
 @export var spread_increase_per_shot := 1.0
 
 # Internal State

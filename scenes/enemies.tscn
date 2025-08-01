@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfxfofeo6ik05"]
+
+[ext_resource type="PackedScene" uid="uid://dflojfero2vs0" path="res://scenes/enemy.tscn" id="1_y16gg"]
+
+[node name="Enemies" type="Node2D"]
+
+[node name="Enemy" parent="." instance=ExtResource("1_y16gg")]
+position = Vector2(587, -599)
+
+[node name="Enemy2" parent="." instance=ExtResource("1_y16gg")]
+position = Vector2(-909, -1288)
+
+[node name="Enemy3" parent="." instance=ExtResource("1_y16gg")]
+position = Vector2(-158, -1533)
+
+[node name="Enemy4" parent="." instance=ExtResource("1_y16gg")]
+position = Vector2(-1492, -1983)
+
+[node name="Enemy5" parent="." instance=ExtResource("1_y16gg")]
+position = Vector2(-313, -2406)
+
+[node name="Enemy6" parent="." instance=ExtResource("1_y16gg")]
+position = Vector2(1283, -1338)
+
+[node name="Enemy7" parent="." instance=ExtResource("1_y16gg")]
+position = Vector2(1839, -2022)

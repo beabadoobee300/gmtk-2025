@@ -33,10 +33,12 @@ var speed := normal_speed
 
 # damage
 var can_take_damage = true
-var damage_cooldown = 1.0  # 1 second cooldown
+var damage_cooldown = 0.5  # 1 second cooldown
 var cooldown_timer = 0.0
 
 func _ready():
+	$PointLight2D.shadow_enabled = true
+	$PointLight2D.shadow_color = Color(0, 0, 0, 0.8)  # Darker shadows = less visibility
 	current_health = max_health
 	original_position = global_position
 
@@ -77,7 +79,7 @@ func get_input(delta):
 	# Handle rotation toward mouse
 	var mouse_pos = get_global_mouse_position()
 	var direction_to_mouse = (mouse_pos - global_position).normalized()
-	rotation = direction_to_mouse.angle()
+	$player.rotation = direction_to_mouse.angle()
 	
 	# Handle event-based inputs
 	if Input.is_action_just_pressed("reload"):

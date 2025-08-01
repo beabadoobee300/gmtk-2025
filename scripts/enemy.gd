@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var speed := 150
-@export var health := 60
+@export var health := 30
 @export var damage := 10
 
 @onready var sprite := $Sprite2D
@@ -11,6 +11,7 @@ var is_dead := false
 
 @export var default_view_distance := 500.0
 @export var max_view_distance := 1000.0
+@export var close_proximity_distance := 200.0;
 @export var max_view_angle := 270.0  # Degrees
 @export var default_view_angle := 90.0
 @export var chase_speed := 300.0
@@ -136,35 +137,34 @@ func can_see_player():
 	
 	var direction_to_player = (player.global_position - global_position).normalized()
 	var distance_to_player = global_position.distance_to(player.global_position)
-	#print("DEBUG: Distance to player: %.1f (max %.1f)" % [distance_to_player, view_distance])
 	
-	# Check if player is within view distance
-	if distance_to_player > view_distance:
-		#print("DEBUG: Player too far away")
-		return false
-	
-	# Check angle (convert to degrees for easier understanding)
-	var angle_to_player = rad_to_deg(direction_to_player.angle() - rotation)
-	#print("DEBUG: Angle to player: %.1f° (max %.1f°)" % [angle_to_player, view_angle])
-	
-	if abs(angle_to_player) > view_angle:
-		#print("DEBUG: Player outside view cone")
-		return false
-	
-	# Raycast to check line of sight
+	# --- RAYCAST CHECK (for walls/obstacles) ---
 	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsRayQueryParameters2D.create(
+	var ray_query = PhysicsRayQueryParameters2D.create(
 		global_position,
 		player.global_position
 	)
-	query.exclude = [self]
+	ray_query.exclude = [self]  # Ignore self-collision
+	var ray_result = space_state.intersect_ray(ray_query)
 	
-	var result = space_state.intersect_ray(query)
+	# If something blocks LOS (and it's not the player), fail detection
+	if ray_result and ray_result.collider != player:
+		return false
 	
+	# --- CLOSE PROXIMITY DETECTION (any direction, no angle check) ---
+	if distance_to_player <= close_proximity_distance:
+		return true  # Detected, no further checks needed
 	
+	# --- CONE-OF-VISION DETECTION (distance + angle) ---
+	if distance_to_player > view_distance:
+		return false
 	
-	return result.is_empty() or result.collider == player
+	var angle_to_player = rad_to_deg(direction_to_player.angle() - rotation)
+	if abs(angle_to_player) > view_angle:
+		return false
 	
+	# If all checks passed (LOS, distance, angle), player is visible
+	return true
 func take_damage(damage_amount):
 	health -= damage_amount
 	if health <= 0:
