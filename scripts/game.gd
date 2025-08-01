@@ -8,6 +8,8 @@ var inventory = {
 	"items": [],
 }
 
+var active_generators = 0;
+
 # Inventory access method
 func get_inventory() -> Dictionary:
 	return inventory
@@ -39,11 +41,19 @@ func _ready():
 	# Connect to all collectables in group
 	for collectable in get_tree().get_nodes_in_group("collectable"):
 		collectable.connect("collected", _on_collected)
+	for switch in get_tree().get_nodes_in_group("generator"):
+		switch.connect("switch_activated", _on_switch_activated)
+	for exit in get_tree().get_nodes_in_group("exit"):
+		exit.connect("exit_activated", _on_exit_activated)
 
 func collect_ammo(n):
-	print("j")
 	$Player/gun.collect_ammo(n)
 	return
+
+func _on_switch_activated(switch_name):
+	print("Switch activated: ", switch_name)
+	
+	# Handle whatever should happen when switch is activated
 	
 func _on_collected(collect):
 	print("game collected %s" % collect)
@@ -54,3 +64,8 @@ func _on_collected(collect):
 			add_keys(1)
 		"Ammo":
 			collect_ammo(5)
+
+func _on_exit_activated():
+	print("Exit activated! Level complete!")
+	# Handle level completion here
+	end_game()

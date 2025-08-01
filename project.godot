@@ -24,6 +24,8 @@ window/vsync/vsync_mode=0
 collectable=""
 player=""
 enemies=""
+generator=""
+exit=""
 
 [input]
 

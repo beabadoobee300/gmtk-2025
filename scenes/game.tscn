@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxlkv2rl8ewsg"]
+[gd_scene load_steps=12 format=3 uid="uid://cxlkv2rl8ewsg"]
 
 [ext_resource type="Script" uid="uid://ktdddoytcvaj" path="res://scripts/game.gd" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://dnjqxwrkqym37" path="res://scenes/player.tscn" id="2_yqjtg"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://ds186todub6nv" path="res://scenes/collectable.tscn" id="7_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://hjtoyttnifoi" path="res://scenes/hud.tscn" id="8_gee14"]
 [ext_resource type="PackedScene" uid="uid://bbsmy5mgc03kp" path="res://scenes/door.tscn" id="9_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://rnbti171j2xq" path="res://scenes/generator.tscn" id="10_vtaks"]
+[ext_resource type="PackedScene" uid="uid://c7mwghhb4i1ku" path="res://scenes/exit.tscn" id="11_kvpfn"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_uwrxv")
@@ -44,3 +46,15 @@ item_name = "Key"
 
 [node name="Door" parent="." instance=ExtResource("9_0tnpc")]
 position = Vector2(151, -133)
+
+[node name="Generator" parent="." instance=ExtResource("10_vtaks")]
+position = Vector2(-254, 8)
+
+[node name="Generator2" parent="." instance=ExtResource("10_vtaks")]
+position = Vector2(-250, -79)
+
+[node name="Generator3" parent="." instance=ExtResource("10_vtaks")]
+position = Vector2(-166, -51)
+
+[node name="Exit" parent="." instance=ExtResource("11_kvpfn")]
+position = Vector2(-40, -162)

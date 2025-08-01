@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bbsmy5mgc03kp"]
 
 [ext_resource type="Texture2D" uid="uid://b7jpg6lh65cui" path="res://icon.svg" id="1_hpvv5"]
-[ext_resource type="Script" uid="uid://bxv2a0of26gu" path="res://scenes/door.gd" id="1_uvdjg"]
+[ext_resource type="Script" uid="uid://bxv2a0of26gu" path="res://scripts/door.gd" id="1_uvdjg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uvdjg"]
 size = Vector2(20, 6)
@@ -35,3 +35,4 @@ offset_top = 3.19149
 offset_right = 30.9326
 offset_bottom = 26.1915
 scale = Vector2(0.450239, 0.287985)
+metadata/_edit_use_anchors_ = true

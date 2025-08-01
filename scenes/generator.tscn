@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://rnbti171j2xq"]
+
+[ext_resource type="Texture2D" uid="uid://b7jpg6lh65cui" path="res://icon.svg" id="1_5yxne"]
+[ext_resource type="Script" uid="uid://dbmp4evhpf0yb" path="res://generator.gd" id="1_w5vnv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w5vnv"]
+size = Vector2(20, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ef8yp"]
+size = Vector2(23.2324, 64.5399)
+
+[node name="Generator" type="Area2D" groups=["generator"]]
+scale = Vector2(2.68, 2.68)
+script = ExtResource("1_w5vnv")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+scale = Vector2(1, 1.16936)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+scale = Vector2(0.154372, -0.0909242)
+texture = ExtResource("1_5yxne")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+scale = Vector2(1, 2.04348)
+shape = SubResource("RectangleShape2D_w5vnv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.0176114, -5.96046e-08)
+scale = Vector2(1.05996, 0.309886)
+shape = SubResource("RectangleShape2D_ef8yp")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -8.0
+offset_top = 9.0
+offset_right = 116.0
+offset_bottom = 58.0
+scale = Vector2(0.14507, 0.141012)
+text = "Generator
+Use E to turn on"
+metadata/_edit_use_anchors_ = true

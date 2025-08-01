@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7mwghhb4i1ku"]
+
+[ext_resource type="Texture2D" uid="uid://b7jpg6lh65cui" path="res://icon.svg" id="1_l0aq0"]
+[ext_resource type="Script" uid="uid://bs86cm1b56d00" path="res://scenes/exit.gd" id="1_uyw7u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uyw7u"]
+size = Vector2(20, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l5n14"]
+size = Vector2(23.2324, 64.0509)
+
+[node name="Exit" type="Area2D" groups=["exit"]]
+scale = Vector2(6.6528, 2.64)
+script = ExtResource("1_uyw7u")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+scale = Vector2(1, 1.16936)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+scale = Vector2(0.154372, -0.0909242)
+texture = ExtResource("1_l0aq0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+scale = Vector2(1, 2.04348)
+shape = SubResource("RectangleShape2D_uyw7u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.0176114, -0.0757575)
+scale = Vector2(1.05996, 0.309886)
+shape = SubResource("RectangleShape2D_l5n14")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -5.8622
+offset_top = 13.6364
+offset_right = 118.138
+offset_bottom = 62.6364
+scale = Vector2(0.0934065, 0.413143)
+text = "Exit
+"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
