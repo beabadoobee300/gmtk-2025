@@ -79,6 +79,7 @@ func get_input(delta):
 	# Handle rotation toward mouse
 	var mouse_pos = get_global_mouse_position()
 	var direction_to_mouse = (mouse_pos - global_position).normalized()
+	$flashlight.rotation = direction_to_mouse.angle()
 	$player.rotation = direction_to_mouse.angle()
 	
 	# Handle event-based inputs

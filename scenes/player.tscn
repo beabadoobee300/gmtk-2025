@@ -59,7 +59,7 @@ zoom = Vector2(1.5, 1.5)
 process_callback = 0
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-scale = Vector2(6.125, 6.125)
+scale = Vector2(5.805, 5.805)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_qlg0r")
 
