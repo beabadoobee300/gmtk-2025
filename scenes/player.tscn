@@ -1,17 +1,32 @@
-[gd_scene load_steps=10 format=3 uid="uid://dnjqxwrkqym37"]
+[gd_scene load_steps=14 format=3 uid="uid://dnjqxwrkqym37"]
 
 [ext_resource type="Texture2D" uid="uid://b7jpg6lh65cui" path="res://icon.svg" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://bmmpn7y8eda0b" path="res://scripts/player.gd" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://c8i21ap2ydtfn" path="res://scripts/gun.gd" id="3_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://dflojfero2vs0" path="res://scenes/enemy.tscn" id="4_dqkch"]
+[ext_resource type="Shader" uid="uid://br62ekum3exau" path="res://scenes/player.gdshader" id="5_qlg0r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
 size = Vector2(31, 31)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_g2els"]
 
+[sub_resource type="Gradient" id="Gradient_qlg0r"]
+offsets = PackedFloat32Array(0, 0.785714)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tuyoq"]
+gradient = SubResource("Gradient_qlg0r")
+fill = 1
+fill_from = Vector2(0.5, 0.504587)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qlg0r"]
 size = Vector2(42.2524, 43.0376)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tuyoq"]
+shader = ExtResource("5_qlg0r")
+shader_parameter/noise_intensity = 0.3
+shader_parameter/noise_speed = 1.0
 
 [sub_resource type="Gradient" id="Gradient_dqkch"]
 offsets = PackedFloat32Array(0, 0.6875)
@@ -44,6 +59,11 @@ position = Vector2(31, -1)
 scale = Vector2(27.89, 7.57903)
 texture = SubResource("PlaceholderTexture2D_g2els")
 
+[node name="PointLight2D2" type="PointLight2D" parent="gun"]
+scale = Vector2(12.4844, 12.4844)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_tuyoq")
+
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(7.62939e-06, 7.62939e-06)
 scale = Vector2(-1.06653, 1.04707)
@@ -58,8 +78,19 @@ position = Vector2(22, 5)
 zoom = Vector2(1.5, 1.5)
 process_callback = 0
 
+[node name="ColorRect" type="ColorRect" parent="Camera2D"]
+material = SubResource("ShaderMaterial_tuyoq")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -22.0
+offset_right = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(5.805, 5.805)
+color = Color(0.662452, 0.662452, 0.662452, 1)
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_qlg0r")
 

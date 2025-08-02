@@ -33,6 +33,7 @@ var last_bullet_angle := 0.0
 var time_since_last_shot := 0.0
 
 func _ready():
+	$PointLight2D2.enabled = false
 	# Initialize ammo - 5 in magazine, 10 in reserve (15 total starting)
 	current_magazine = magazine_size
 	current_reserve = 10  # Starting reserve ammo
@@ -78,6 +79,7 @@ func shoot():
 	cooldown_timer = fire_rate
 	time_since_last_shot = 0.0
 	
+	
 		
 	# Calculate bullet spread
 	var mouse_direction = (get_global_mouse_position() - global_position).normalized()
@@ -119,6 +121,18 @@ func shoot():
 	# Auto-reload when magazine is empty
 	if current_magazine <= 0 and current_reserve > 0:
 		reload()
+	$PointLight2D2.enabled = true
+	$PointLight2D2.energy = 1.0  # Reset to full brightness
+	
+	# Fade out light over 0.2 seconds
+	var fade_duration := 0.15
+	var fade_timer := 0.0
+	while fade_timer < fade_duration:
+		fade_timer += get_process_delta_time()
+		$PointLight2D2.energy = lerp(1.0, 0.0, fade_timer / fade_duration)
+		await get_tree().process_frame  # Smooth fading
+	
+	$PointLight2D2.enabled = false
 
 func reload():
 	if is_reloading or current_magazine == magazine_size or current_reserve <= 0:

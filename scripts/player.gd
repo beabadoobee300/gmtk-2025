@@ -123,6 +123,7 @@ func kill_player():
 	respawn_player()
 
 func respawn_player():
+	%gun.current_reserve = 10  # Starting reserve ammo
 	# Choose random respawn point
 	var spawn_point = respawn_points.pick_random()
 	
