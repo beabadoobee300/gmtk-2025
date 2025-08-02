@@ -8,6 +8,7 @@ var inventory = {
 	"items": [],
 }
 
+signal key_collected()
 var deaths = 0
 
 var active_generators = 0;
@@ -22,6 +23,7 @@ func has_keys(amount: int = 1) -> bool:
 
 func add_keys(amount: int = 1):
 	inventory["keys"] += amount
+	emit_signal("key_collected")
 
 func use_keys(amount: int = 1) -> bool:
 	if has_keys(amount):
@@ -52,7 +54,13 @@ func _ready():
 		exit.connect("exit_activated", _on_exit_activated)
 	for player in get_tree().get_nodes_in_group("player"):
 		player.connect("death", _death)
+		player.connect("blood", _blood)
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		enemy.connect("blood", _blood)
 
+func _blood(pos):
+	print("blood")
+	$BloodCanvas.add_blood(pos,1)
 func _death():
 	deaths += 1;
 	

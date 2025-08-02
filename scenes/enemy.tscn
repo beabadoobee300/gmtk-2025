@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dflojfero2vs0"]
 
-[ext_resource type="Texture2D" uid="uid://b7jpg6lh65cui" path="res://icon.svg" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://dnptbj4etpkaj" path="res://scripts/enemy.gd" id="1_md0e3"]
+[ext_resource type="Texture2D" uid="uid://cg2afpfsoaru5" path="res://asssets/pixil-frame-0.png" id="2_md0e3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_md0e3"]
 size = Vector2(34, 34)
@@ -10,6 +10,8 @@ size = Vector2(34, 34)
 size = Vector2(43, 43)
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+top_level = true
+z_index = 2
 script = ExtResource("1_md0e3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -17,11 +19,12 @@ scale = Vector2(1.00642, 1)
 shape = SubResource("RectangleShape2D_md0e3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(-0.281983, -0.280185)
-texture = ExtResource("1_7p1mj")
+position = Vector2(-1.43051e-06, -9.53674e-07)
+scale = Vector2(-1.07856, -1.07168)
+texture = ExtResource("2_md0e3")
 
-[node name="Area2D" type="Area2D" parent="." groups=["enemies"]]
-scale = Vector2(1.02317, 1.00862)
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(0.946942, 0.933476)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-0.5, -0.5)

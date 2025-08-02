@@ -9,6 +9,7 @@ extends CharacterBody2D
 
 var is_dead := false
 
+
 @export var default_view_distance := 500.0
 @export var max_view_distance := 1000.0
 @export var close_proximity_distance := 200.0;
@@ -37,6 +38,8 @@ var rotation_smoothing = 20.0  # Higher values = faster rotation to face player
 var is_slowed = false
 var slow_timer = 0.0
 var slow_duration = 0.3  # half second slow duration
+
+signal blood(position)
 
 
 func _process(delta):
@@ -162,7 +165,10 @@ func can_see_player():
 	
 	# If all checks passed (LOS, distance, angle), player is visible
 	return true
+	
 func take_damage(damage_amount):
+	emit_signal("blood", global_position)
+	print("blood1")
 	health -= damage_amount
 	if health <= 0:
 		kill_zombie()
@@ -172,6 +178,7 @@ func take_damage(damage_amount):
 		# Activate slow effect
 		is_slowed = true
 		slow_timer = slow_duration
+	
 
 func kill_zombie():
 	if is_dead:

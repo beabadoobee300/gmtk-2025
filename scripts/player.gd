@@ -16,9 +16,11 @@ extends CharacterBody2D
 @export var enemy_scene : PackedScene
 @export var death_enemy_scale := 1.0
 # signals
+signal blood(position)
 signal death()
 signal health_updated(value)
 signal ammo_updated(value)
+signal key_updated(value)
 # State variables
 var current_health := max_health
 var is_dead := false
@@ -37,6 +39,9 @@ var damage_cooldown = 0.5  # 1 second cooldown
 var cooldown_timer = 0.0
 var touching = false
 
+var health_blood_timer := 0.0
+var blood_emit_interval := 3.0  # Start with 1 second interval
+
 func _ready():
 	
 	$PointLight2D.shadow_enabled = true
@@ -54,12 +59,19 @@ func _physics_process(delta):
 		move_and_slide()
 		update_labels()
 		
-	
+	if current_health < 100:  # Only emit if damaged
+		health_blood_timer -= delta
+		if health_blood_timer <= 0:
+			# Calculate interval based on health (more frequent at low health)
+			blood_emit_interval = lerp(0.1, 1.0, current_health/100.0)
+			health_blood_timer = blood_emit_interval
+			
+			# Calculate intensity (more blood at low health)
+			emit_signal("blood", global_position)
 	
 func update_labels():
 	emit_signal("health_updated", current_health)
 	emit_signal("ammo_updated", gun.current_magazine, gun.current_reserve)
-	
 func _process(delta):
 	if shooting and !is_dead:
 		gun.shoot()
@@ -67,11 +79,6 @@ func _process(delta):
 		cooldown_timer -= delta
 		if cooldown_timer <= 0:
 			can_take_damage = true
-	
-	if touching and can_take_damage:
-		
-		take_damage(20)
-		cooldown_timer = damage_cooldown
 
 func set_shooting_state(is_shooting: bool):
 	shooting = is_shooting
@@ -123,7 +130,7 @@ func kill_player():
 	respawn_player()
 
 func respawn_player():
-	%gun.current_reserve = 10  # Starting reserve ammo
+	gun.current_reserve = 10  # Starting reserve ammo
 	# Choose random respawn point
 	var spawn_point = respawn_points.pick_random()
 	
@@ -151,6 +158,7 @@ func take_damage(amount: int):
 		return
 		
 	current_health -= amount
+	emit_signal("blood",global_position)
 	if current_health <= 0:
 		kill_player()
 

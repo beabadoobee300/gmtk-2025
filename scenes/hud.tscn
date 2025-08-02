@@ -1,15 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://hjtoyttnifoi"]
+[gd_scene load_steps=5 format=3 uid="uid://hjtoyttnifoi"]
 
 [ext_resource type="Script" uid="uid://uyp4h5kcg8cr" path="res://scripts/hud.gd" id="1_ahhtf"]
+[ext_resource type="FontFile" uid="uid://bmmetnjrer1st" path="res://asssets/Cutive_Mono/CutiveMono-Regular.ttf" id="2_oo0fn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_85g3d"]
+
+[sub_resource type="Theme" id="Theme_5ysmq"]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 1
+Label/font_sizes/font_size = 16
+Label/fonts/font = ExtResource("2_oo0fn")
+Label/styles/normal = SubResource("StyleBoxEmpty_85g3d")
 
 [node name="hud" type="CanvasLayer"]
 script = ExtResource("1_ahhtf")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_left = 356.0
-offset_top = 170.0
-offset_right = 416.0
-offset_bottom = 273.0
+offset_left = 273.0
+offset_top = 117.0
+offset_right = 333.0
+offset_bottom = 220.0
+theme = SubResource("Theme_5ysmq")
 
 [node name="health" type="Label" parent="VBoxContainer"]
 layout_mode = 2
@@ -21,5 +38,5 @@ text = "Ammo: "
 
 [node name="items" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Items:
+text = "Keys: 0
 "
