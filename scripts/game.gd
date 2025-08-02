@@ -8,6 +8,8 @@ var inventory = {
 	"items": [],
 }
 
+var deaths = 0
+
 var active_generators = 0;
 
 # Inventory access method
@@ -38,6 +40,9 @@ func end_game():
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func _ready():
+	deaths = 0;
+	if deaths == 0:
+		$Player.current_health = 40;
 	# Connect to all collectables in group
 	for collectable in get_tree().get_nodes_in_group("collectable"):
 		collectable.connect("collected", _on_collected)
@@ -45,7 +50,12 @@ func _ready():
 		switch.connect("switch_activated", _on_switch_activated)
 	for exit in get_tree().get_nodes_in_group("exit"):
 		exit.connect("exit_activated", _on_exit_activated)
+	for player in get_tree().get_nodes_in_group("player"):
+		player.connect("death", _death)
 
+func _death():
+	deaths += 1;
+	
 func collect_ammo(n):
 	$Player/gun.collect_ammo(n)
 	return

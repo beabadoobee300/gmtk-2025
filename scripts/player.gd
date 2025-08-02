@@ -16,7 +16,7 @@ extends CharacterBody2D
 @export var enemy_scene : PackedScene
 @export var death_enemy_scale := 1.0
 # signals
-
+signal death()
 signal health_updated(value)
 signal ammo_updated(value)
 # State variables
@@ -35,8 +35,10 @@ var speed := normal_speed
 var can_take_damage = true
 var damage_cooldown = 0.5  # 1 second cooldown
 var cooldown_timer = 0.0
+var touching = false
 
 func _ready():
+	
 	$PointLight2D.shadow_enabled = true
 	$PointLight2D.shadow_color = Color(0, 0, 0, 0.8)  # Darker shadows = less visibility
 	current_health = max_health
@@ -65,6 +67,11 @@ func _process(delta):
 		cooldown_timer -= delta
 		if cooldown_timer <= 0:
 			can_take_damage = true
+	
+	if touching and can_take_damage:
+		
+		take_damage(20)
+		cooldown_timer = damage_cooldown
 
 func set_shooting_state(is_shooting: bool):
 	shooting = is_shooting
@@ -74,12 +81,11 @@ func get_input(delta):
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 	speed = shooting_speed if shooting else normal_speed
 	
-	velocity = (input_direction * speed ) * (current_health + 100) / 200
+	velocity = (input_direction * speed ) * (current_health + 30) / 130
 	
 	# Handle rotation toward mouse
 	var mouse_pos = get_global_mouse_position()
 	var direction_to_mouse = (mouse_pos - global_position).normalized()
-	$flashlight.rotation = direction_to_mouse.angle()
 	$player.rotation = direction_to_mouse.angle()
 	
 	# Handle event-based inputs
@@ -99,6 +105,7 @@ func get_input(delta):
 func kill_player():
 	if is_dead: 
 		return
+	emit_signal("death")
 	spawn_zombie()
 	print("killed")
 	is_dead = true
@@ -165,12 +172,14 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	var other_body = area.get_parent()
 	if other_body.is_in_group("enemies") and can_take_damage:
 		print("Touching:", other_body.name)
+		touching = true
 		take_damage(20)
 		# Start cooldown
 		can_take_damage = false
 		cooldown_timer = damage_cooldown
-		# Optional: Visual feedback (flash effect)
-		modulate = Color.RED
-		await get_tree().create_timer(0.1).timeout
-		modulate = Color.WHITE
+	pass # Replace with function body.
+
+
+func _on_area_2d_area_exited(area: Area2D) -> void:
+	touching = false
 	pass # Replace with function body.

@@ -40,10 +40,7 @@ var slow_duration = 0.3  # half second slow duration
 
 
 func _process(delta):
-	if is_slowed:
-		slow_timer -= delta
-		if slow_timer <= 0:
-			is_slowed = false
+	
 	if can_see_player():
 		is_chasing = true
 		view_distance = max_view_distance
@@ -199,6 +196,13 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	var other_body = area.get_parent()
 	if other_body.is_in_group("player") :
 		print("Touching:", other_body.name)
+		
+	
 	is_slowed = true
 	slow_timer = slow_duration
+	pass # Replace with function body.
+
+
+func _on_area_2d_area_exited(area: Area2D) -> void:
+	is_slowed = false
 	pass # Replace with function body.
