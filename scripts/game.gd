@@ -39,7 +39,10 @@ func _input(event):
 		end_game()
 
 func end_game():
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
+	get_tree().change_scene_to_file("res://scenes/win.tscn")
+
+var fade_rect: ColorRect
+var fade_tween: Tween
 
 func _ready():
 	deaths = 0;
@@ -57,12 +60,41 @@ func _ready():
 		player.connect("blood", _blood)
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		enemy.connect("blood", _blood)
+		
+	fade_rect = ColorRect.new()
+	fade_rect.color = Color(0, 0, 0, 0)
+	fade_rect.size = Vector2(10000,10000)
+	fade_rect.position = Vector2(-4000, -4000)
+	fade_rect.mouse_filter = Control.MOUSE_FILTER_STOP
+	add_child(fade_rect)
+	
+	# Handle window resizing
+	
+	# Create tween
+	fade_tween = create_tween()
 
+func fade_to_black(duration: float = 1.0):
+	fade_tween.kill()
+	fade_tween = create_tween()
+	fade_tween.tween_property(fade_rect, "color:a", 1.0, duration)
+	await fade_tween.finished
+
+func fade_from_black(duration: float = 1.0):
+	fade_tween.kill()
+	fade_tween = create_tween()
+	fade_tween.tween_property(fade_rect, "color:a", 0.0, duration)
+	await fade_tween.finished
+
+func fade_black_transition(duration: float = 1.0):
+	await fade_to_black(0)
+	await fade_from_black(3)
+	
 func _blood(pos):
 	print("blood")
 	$BloodCanvas.add_blood(pos,1)
 func _death():
 	deaths += 1;
+	fade_black_transition()
 	
 func collect_ammo(n):
 	$Player/gun.collect_ammo(n)
