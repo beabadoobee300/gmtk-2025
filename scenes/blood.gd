@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends CanvasGroup
 # In your blood manager script (autoload recommended)
 var blood_stains = []
 
@@ -23,7 +23,7 @@ func add_blood(pos: Vector2, size: float = 1.0):
 	blood.global_position = Vector2(pos.x + x_offset, pos.y + y_offset)
 	
 	blood.scale = Vector2(0.2, 0.2) * size  # Incorporate size parameter
-	blood.modulate = Color(1, 0, 0, 0.8)  # Red with slight transparency
+	blood.modulate = Color(0.4, 0, 0, 0.8)  # Red with slight transparency
 	blood.z_index = 0  # Render above other sprites
 	
 	canvas.add_child(blood)

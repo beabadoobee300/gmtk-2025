@@ -391,7 +391,6 @@ position = Vector2(-618, -2409)
 position = Vector2(1353, -2818)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-modulate = Color(1, 1, 1, 0.85098)
 z_index = -10
 z_as_relative = false
 position = Vector2(-2, -7)
@@ -404,7 +403,14 @@ position = Vector2(-18, -2278)
 rotation = 1.55563
 scale = Vector2(3.6, 3.76)
 
+[node name="BloodCanvas" type="CanvasGroup" parent="."]
+script = ExtResource("14_trtic")
+
+[node name="Node2D" type="Node2D" parent="BloodCanvas"]
+z_as_relative = false
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+top_level = true
 position = Vector2(0, 4)
 color = Color(0, 0, 0, 1)
 
@@ -419,14 +425,6 @@ offset_right = 2413.0
 offset_bottom = 376.0
 scale = Vector2(-131.899, -93.5568)
 color = Color(0.17, 0.17, 0.17, 1)
-
-[node name="BloodCanvas" type="CanvasLayer" parent="."]
-layer = -1
-follow_viewport_enabled = true
-script = ExtResource("14_trtic")
-
-[node name="Node2D" type="Node2D" parent="BloodCanvas"]
-z_index = -1
 
 [node name="Enemy" parent="." instance=ExtResource("5_iywne")]
 position = Vector2(587, -599)

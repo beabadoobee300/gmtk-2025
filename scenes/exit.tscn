@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnxokdp87d45e"]
+[gd_scene load_steps=6 format=3 uid="uid://dnxokdp87d45e"]
 
-[ext_resource type="Texture2D" uid="uid://b7jpg6lh65cui" path="res://icon.svg" id="1_l0aq0"]
 [ext_resource type="Script" uid="uid://bs86cm1b56d00" path="res://scripts/exit.gd" id="1_uyw7u"]
+[ext_resource type="Texture2D" uid="uid://cet6alrrwrrqo" path="res://asssets/exit.png" id="2_l5n14"]
+[ext_resource type="FontFile" uid="uid://bmmetnjrer1st" path="res://asssets/Cutive_Mono/CutiveMono-Regular.ttf" id="3_l5n14"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l0aq0"]
 size = Vector2(137, 76.9118)
+
+[sub_resource type="Theme" id="Theme_c7mer"]
+default_font = ExtResource("3_l5n14")
+default_font_size = 30
 
 [node name="Exit" type="Area2D" groups=["exit"]]
 script = ExtResource("1_uyw7u")
@@ -15,12 +20,16 @@ scale = Vector2(1.28383, -1.88889)
 shape = SubResource("RectangleShape2D_l0aq0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.48, 0.25)
-texture = ExtResource("1_l0aq0")
+texture_filter = 3
+position = Vector2(20, -1)
+scale = Vector2(3.39786, 4.37699)
+texture = ExtResource("2_l5n14")
 
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
+theme = SubResource("Theme_c7mer")
+horizontal_alignment = 1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

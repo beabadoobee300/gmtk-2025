@@ -21,6 +21,15 @@ func _ready():
 	# Center the text
 	$Label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	$Label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	
+	if item_name == "Key":
+		$Sprite2D.texture = preload("res://asssets/key.png")
+		$Sprite2D.scale = Vector2(1, 1)  # 3x scale
+		$Sprite2D.texture_filter = TEXTURE_FILTER_NEAREST  # Preserve pixel art sharpness
+	if item_name == "Ammo":
+		$Sprite2D.texture = preload("res://asssets/ammo.png")
+		$Sprite2D.scale = Vector2(1, 1)  # 3x scale
+		$Sprite2D.texture_filter = TEXTURE_FILTER_NEAREST  # Preserve pixel art sharpness
 
 func _on_body_entered(body):
 	if body.is_in_group("player"): # Or whatever your player group is

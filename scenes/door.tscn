@@ -1,13 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbsmy5mgc03kp"]
+[gd_scene load_steps=7 format=3 uid="uid://bbsmy5mgc03kp"]
 
-[ext_resource type="Texture2D" uid="uid://b7jpg6lh65cui" path="res://icon.svg" id="1_hpvv5"]
 [ext_resource type="Script" uid="uid://bxv2a0of26gu" path="res://scripts/door.gd" id="1_uvdjg"]
+[ext_resource type="Texture2D" uid="uid://dajduc8wkye5u" path="res://asssets/door.png" id="2_uvdjg"]
+[ext_resource type="FontFile" uid="uid://bmmetnjrer1st" path="res://asssets/Cutive_Mono/CutiveMono-Regular.ttf" id="3_83dcw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uvdjg"]
 size = Vector2(20, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hpvv5"]
 size = Vector2(23.2324, 55.2708)
+
+[sub_resource type="Theme" id="Theme_la1wf"]
+default_font = ExtResource("3_83dcw")
 
 [node name="Door" type="Area2D"]
 scale = Vector2(7.72, 3.76)
@@ -17,8 +21,10 @@ script = ExtResource("1_uvdjg")
 scale = Vector2(1, 0.489362)
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-scale = Vector2(0.154372, -0.0909242)
-texture = ExtResource("1_hpvv5")
+texture_filter = 3
+position = Vector2(0, 3.26087)
+scale = Vector2(0.628417, -0.871395)
+texture = ExtResource("2_uvdjg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 scale = Vector2(1, 2.04348)
@@ -35,4 +41,7 @@ offset_top = 3.19149
 offset_right = 30.9326
 offset_bottom = 26.1915
 scale = Vector2(0.450239, 0.287985)
+theme = SubResource("Theme_la1wf")
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true

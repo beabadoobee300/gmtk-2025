@@ -1,13 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://rnbti171j2xq"]
+[gd_scene load_steps=8 format=3 uid="uid://rnbti171j2xq"]
 
-[ext_resource type="Texture2D" uid="uid://b7jpg6lh65cui" path="res://icon.svg" id="1_5yxne"]
 [ext_resource type="Script" uid="uid://dbmp4evhpf0yb" path="res://scripts/generator.gd" id="1_w5vnv"]
+[ext_resource type="Texture2D" uid="uid://cmvkhg2fsnaac" path="res://asssets/generator.png" id="2_w5vnv"]
+[ext_resource type="FontFile" uid="uid://bmmetnjrer1st" path="res://asssets/Cutive_Mono/CutiveMono-Regular.ttf" id="3_ef8yp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w5vnv"]
 size = Vector2(20, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ef8yp"]
 size = Vector2(23.2497, 64.5399)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rqoq6"]
+
+[sub_resource type="Theme" id="Theme_4pjfl"]
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 1
+Label/font_sizes/font_size = 30
+Label/fonts/font = ExtResource("3_ef8yp")
+Label/styles/normal = SubResource("StyleBoxEmpty_rqoq6")
 
 [node name="Generator" type="Area2D" groups=["generator"]]
 scale = Vector2(2.68, 2.68)
@@ -17,8 +33,9 @@ script = ExtResource("1_w5vnv")
 scale = Vector2(1, 1.16936)
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-scale = Vector2(0.154372, -0.0909242)
-texture = ExtResource("1_5yxne")
+texture_filter = 3
+scale = Vector2(0.626866, 0.514979)
+texture = ExtResource("2_w5vnv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 scale = Vector2(1, 2.04348)
@@ -30,11 +47,13 @@ scale = Vector2(1.05996, 0.309886)
 shape = SubResource("RectangleShape2D_ef8yp")
 
 [node name="Label" type="Label" parent="."]
-offset_left = -8.0
-offset_top = 9.0
-offset_right = 116.0
-offset_bottom = 58.0
+offset_left = -18.2836
+offset_top = 8.95522
+offset_right = 273.716
+offset_bottom = 79.9552
 scale = Vector2(0.14507, 0.141012)
+theme = SubResource("Theme_4pjfl")
 text = "Generator
 Use E to turn on"
+horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
